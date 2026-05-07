@@ -1,17 +1,17 @@
-# Console Based Employee Management System using Salesforce Apex
+# Console Based Bank Account System using Salesforce Apex
 
 ## Overview
 
-This project demonstrates the development of a Console Based Employee Management System using Salesforce Apex programming language.
+This project demonstrates the development of a Console Based Bank Account System using Salesforce Apex programming language.
 
-The application manages employee records stored in a custom Salesforce object. Employee operations are performed using Apex methods executed through the Execute Anonymous Window in Salesforce Developer Console.
+The application manages customer bank account records stored in a custom Salesforce object. Customer operations are performed using Apex methods executed through the Execute Anonymous Window in Salesforce Developer Console.
 
 The system supports:
 
-- Add Employee
-- View Employees
-- Update Employee
-- Delete Employee
+- Add Customer
+- View Customers
+- Update Customer Account Type
+- Delete Customer
 
 The implementation uses:
 
@@ -25,10 +25,10 @@ The implementation uses:
 
 # Objective
 
-- Create a custom object for employee records
-- Store employee information in Salesforce
+- Create a custom object for customer records
+- Store customer information in Salesforce
 - Develop backend logic using Apex
-- Implement menu-driven employee operations
+- Implement menu-driven customer operations
 - Perform CRUD operations using console execution
 
 ---
@@ -51,36 +51,36 @@ The implementation uses:
         Execute Anonymous Window
                   |
                   |
-         Apex Management Class
-      (EmployeeManagementSystem)
+            Apex Management Class
+             (BankAccountSystem)
                   |
                   |
-         Salesforce Custom Object
-               Employee__c
+           Salesforce Custom Object
+                 Customer__c
 ```
 
 ---
 
 # Features
 
-- Add Employee Records
-- View Employee Records
-- Update Employee Department
-- Delete Employee Records
+- Add Customer Records
+- View Customer Records
+- Update Customer Account Type
+- Delete Customer Records
 - Console-Based Execution
 - Salesforce Database Integration
 
 ---
 
-# Employee Fields
+# Customer Fields
 
 | Field Name | Data Type |
 |---|---|
-| Employee Name | Text |
-| Emp ID | Number |
+| Customer Name | Text |
+| Customer ID | Number |
 | Email | Email |
 | Birth Date | Date |
-| Department | Text |
+| Account Type | Text/Picklist |
 
 ---
 
@@ -101,12 +101,11 @@ Before starting, ensure you have:
 |---|---|
 | Step 1 | Create Salesforce Developer Account |
 | Step 2 | Open Salesforce Setup |
-| Step 3 | Create Employee Custom Object |
-| Step 4 | Create Employee Custom Fields |
+| Step 3 | Create Customer Custom Object |
+| Step 4 | Create Customer Custom Fields |
 | Step 5 | Create Apex Management Class |
 | Step 6 | Execute Menu-Driven Operations |
 | Step 7 | Test CRUD Operations |
-| Step 8 | (Optional) Create Visualforce UI |
 
 ---
 
@@ -135,7 +134,7 @@ Setup
 
 ---
 
-# Step 3: Create Employee Custom Object
+# Step 3: Create Customer Custom Object
 
 Search:
 
@@ -155,9 +154,9 @@ Configure:
 
 | Field | Value |
 |---|---|
-| Label | Employee |
-| Plural Label | Employees |
-| Object Name | Employee |
+| Label | Customer |
+| Plural Label | Customers |
+| Object Name | Customer |
 
 Click:
 
@@ -168,14 +167,14 @@ Save
 Salesforce automatically creates:
 
 ```text
-Employee__c
+Customer__c
 ```
 
 ---
 
-# Step 4: Create Employee Custom Fields
+# Step 4: Create Customer Custom Fields
 
-Inside Employee Object:
+Inside Customer Object:
 
 Open:
 
@@ -187,10 +186,10 @@ Create the following fields:
 
 | Field Label | Field Type | API Name |
 |---|---|---|
-| Emp ID | Number | Emp_ID__c |
+| Customer ID | Number | Customer_ID__c |
 | Email | Email | Email__c |
 | Birth Date | Date | Birth_Date__c |
-| Department | Text | Department__c |
+| Account Type | Text/Picklist | Account_Type__c |
 
 ---
 
@@ -211,13 +210,13 @@ New
 Class Name:
 
 ```text
-EmployeeManagementSystem
+BankAccountSystem
 ```
 
 Paste the code from:
 
 ```text
-EmployeeManagementSystem.cls
+BankAccountSystem.cls
 ```
 
 Save the Apex class.
@@ -247,7 +246,7 @@ Ctrl + E
 Paste the menu-driven execution code from:
 
 ```text
-EmployeeMenu.txt
+BankMenu.txt
 ```
 
 ---
@@ -256,16 +255,16 @@ EmployeeMenu.txt
 
 | Choice | Operation |
 |---|---|
-| 1 | Add Employee |
-| 2 | View Employees |
-| 3 | Update Employee |
-| 4 | Delete Employee |
+| 1 | Add Customer |
+| 2 | View Customers |
+| 3 | Update Customer |
+| 4 | Delete Customer |
 
 ---
 
 # Step 7: Test CRUD Operations
 
-## Add Employee
+## Add Customer
 
 Set:
 
@@ -278,12 +277,12 @@ Execute the code.
 Expected Output:
 
 ```text
-Employee Added Successfully
+Customer Added Successfully
 ```
 
 ---
 
-## View Employees
+## View Customers
 
 Set:
 
@@ -297,17 +296,17 @@ Expected Output:
 
 ```text
 --------------------------------
-Emp ID      : 101
-Name        : Krish Bansal
-Email       : krish@gmail.com
-Birth Date  : 2005-01-01
-Department  : IT
+Customer ID   : 101
+Name          : Krish Bansal
+Email         : krish@gmail.com
+Birth Date    : 2005-01-01
+Account Type  : Savings
 --------------------------------
 ```
 
 ---
 
-## Update Employee
+## Update Customer
 
 Set:
 
@@ -320,12 +319,12 @@ Execute the code.
 Expected Output:
 
 ```text
-Employee Updated Successfully
+Customer Updated Successfully
 ```
 
 ---
 
-## Delete Employee
+## Delete Customer
 
 Set:
 
@@ -338,7 +337,7 @@ Execute the code.
 Expected Output:
 
 ```text
-Employee Deleted Successfully
+Customer Deleted Successfully
 ```
 
 ---
@@ -354,7 +353,7 @@ After execution:
 Debug Only
 ```
 
-3. View employee details in console logs
+3. View customer details in console logs
 
 ---
 
@@ -363,38 +362,38 @@ Debug Only
 | Component | Purpose |
 |---|---|
 | Apex Class | Backend business logic |
-| SOQL Query | Fetch employee records |
+| SOQL Query | Fetch customer records |
 | DML Operations | Insert/Update/Delete |
 | Execute Anonymous | Console execution |
-| Custom Object | Employee database |
+| Custom Object | Customer database |
 
 ---
 
 # Output
 
-- Employee custom object created
-- Employee fields configured
+- Customer custom object created
+- Customer fields configured
 - Apex management class implemented
 - Menu-driven logic executed successfully
 - CRUD operations completed
-- Employee records managed successfully
+- Customer records managed successfully
 
 ---
 
 # Applications
 
-- Employee Database Management
-- HR Management Systems
-- Enterprise Resource Management
-- Staff Management Systems
-- Corporate CRM Applications
+- Banking Management Systems
+- Customer Database Management
+- Financial Record Systems
+- Enterprise CRM Applications
+- Banking Customer Tracking Systems
 
 ---
 
 # Advantages
 
 - Cloud-Based Record Management
-- Centralized Employee Database
+- Centralized Customer Database
 - Easy Record Maintenance
 - Dynamic Console Execution
 - Secure Data Handling
@@ -404,13 +403,13 @@ Debug Only
 
 # Result
 
-Successfully developed a Console Based Employee Management System using Salesforce Apex with complete CRUD operations for employee records.
+Successfully developed a Console Based Bank Account System using Salesforce Apex with complete CRUD operations for customer records.
 
 ---
 
 # Conclusion
 
-Salesforce Apex provides an efficient platform for implementing database-driven enterprise applications. Using Execute Anonymous Window and Apex methods, menu-driven employee management operations can be performed efficiently within the Salesforce ecosystem.
+Salesforce Apex provides an efficient platform for implementing database-driven enterprise applications. Using Execute Anonymous Window and Apex methods, menu-driven banking customer operations can be performed efficiently within the Salesforce ecosystem.
 
 ---
 
@@ -430,89 +429,10 @@ Salesforce Apex provides an efficient platform for implementing database-driven 
 
 | File Name | Purpose |
 |---|---|
-| EmployeeManagementSystem.cls | Apex management class |
-| EmployeeMenu.txt | Menu-driven execution logic |
+| BankAccountSystem.cls | Apex management class |
+| BankMenu.txt | Menu-driven execution logic |
 
 ---
-
-# (Optional) Visualforce User Interface
-
-The original assignment requires a console-based implementation only.
-
-However, an optional Visualforce frontend UI can also be developed for enhanced interaction and record management.
-
-The Visualforce version includes:
-
-- Apex Controller
-- Visualforce Page
-- Employee Input Form
-- Dynamic Employee Table
-
----
-
-# Optional Visualforce Architecture
-
-```text
-             Visualforce Page
-                    |
-                    |
-            Apex Controller
-                    |
-                    |
-            Employee__c Object
-```
-
----
-
-# Optional Visualforce Steps
-
-| Step | Description |
-|---|---|
-| Step 1 | Create Apex Controller |
-| Step 2 | Create Visualforce Page |
-| Step 3 | Bind Apex Properties |
-| Step 4 | Display Employee Records |
-| Step 5 | Test Visualforce Application |
-
----
-
-# Optional Apex Controller
-
-Go to:
-
-```text
-Setup → Apex Classes
-```
-
-Create:
-
-```text
-EmployeeController.cls
-```
-
-Paste the controller code and save.
-
----
-
-# Optional Visualforce Page
-
-Go to:
-
-```text
-Setup → Visualforce Pages
-```
-
-Create:
-
-```text
-EmployeeManagement.page
-```
-
-Paste the Visualforce markup and save.
-
----
-
-
 
 # Author
 
