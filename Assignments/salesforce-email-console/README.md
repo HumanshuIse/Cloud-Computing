@@ -145,12 +145,17 @@ Save the Apex class.
 
 # Step 4: Implement Email Sending Logic
 
-The Apex class implements:
+The Apex class implements a single unified method:
 
 | Method | Purpose |
 |---|---|
-| sendEmail() | Send email without attachment |
-| sendEmailWithAttachment() | Send email with attachment |
+| sendEmail() | Send email with or without attachment based on boolean parameter |
+
+Method Signature:
+
+```text
+sendEmail(String recipientEmail, String subject, String body, Boolean includeAttachment)
+```
 
 The implementation uses:
 
@@ -159,6 +164,26 @@ Messaging.SingleEmailMessage
 ```
 
 to create and send email notifications.
+
+If:
+
+```text
+includeAttachment = true
+```
+
+the program attaches:
+
+```text
+sample.txt
+```
+
+Otherwise:
+
+```text
+includeAttachment = false
+```
+
+the email is sent normally without attachment.
 
 ---
 
@@ -186,7 +211,8 @@ Paste the execution code:
 EmailNotificationService.sendEmail(
     'your_email@gmail.com',
     'Salesforce Apex Email Notification',
-    'Hello! This email was sent using Salesforce Apex.'
+    'Hello! This email was sent using Salesforce Apex.',
+    false
 );
 ```
 
@@ -217,7 +243,7 @@ Expected Email:
 
 # Step 7: Send Email With Attachment (Optional)
 
-The application also supports sending attachments using:
+The application supports optional attachments using:
 
 ```text
 Messaging.EmailFileAttachment
@@ -226,10 +252,11 @@ Messaging.EmailFileAttachment
 Paste the execution code:
 
 ```text
-EmailNotificationService.sendEmailWithAttachment(
+EmailNotificationService.sendEmail(
     'your_email@gmail.com',
     'Salesforce Email With Attachment',
-    'Hello! Please find the attachment below.'
+    'Hello! Please find the attachment below.',
+    true
 );
 ```
 
@@ -310,7 +337,7 @@ Successfully developed a Console Based Email Notification System using Salesforc
 
 # Conclusion
 
-Salesforce Apex provides powerful built-in messaging services for implementing automated email systems. Using Apex classes and Salesforce Messaging APIs, email notifications can be sent efficiently with customizable subject, body, and attachment support.
+Salesforce Apex provides powerful built-in messaging services for implementing automated email systems. Using a unified Apex email service method and Salesforce Messaging APIs, email notifications can be sent efficiently with customizable subject, body, and attachment support.
 
 ---
 
@@ -320,7 +347,7 @@ Salesforce Apex provides powerful built-in messaging services for implementing a
 |---|---|
 | What is Apex? | Salesforce backend programming language |
 | What is Messaging.SingleEmailMessage? | Salesforce email object |
-| What is sendEmail()? | Method used to send email notifications |
+| What is sendEmail()? | Unified method used to send emails with or without attachments |
 | What is EmailFileAttachment? | Class used to attach files in email |
 | What is Execute Anonymous? | Temporary Apex execution window |
 
@@ -331,9 +358,7 @@ Salesforce Apex provides powerful built-in messaging services for implementing a
 | File Name | Purpose |
 |---|---|
 | EmailNotificationService.cls | Apex email service class |
-| SendEmail.apex | Email execution logic |
-| SendEmailWithAttachment.apex | Attachment email execution logic |
-
+| SendEmail.apex | Execute Anonymous email execution logic |
 ---
 
 # Expected Console Output
