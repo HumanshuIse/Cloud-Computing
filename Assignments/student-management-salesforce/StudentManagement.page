@@ -1,5 +1,5 @@
 <apex:page controller="StudentController">
-    <apex:form >
+    <apex:form>
         <h1>Student Record Management System</h1>
 
         <apex:pageBlock title="Add Student">
@@ -17,11 +17,12 @@
 
         <apex:pageBlock title="Student Records" id="studentTable">
             <apex:pageBlockTable value="{!studentList}" var="s">
+            
                 <apex:column value="{!s.Name}" />
                 <apex:column value="{!s.Roll_No__c}" />
                 <apex:column value="{!s.Class__c}" />
                 <apex:column value="{!s.Mobile_No__c}" />
-                <apex:column >
+                <apex:column>
 
                     <apex:commandLink value="Delete"
                         action="{!deleteStudent}">

@@ -1,5 +1,4 @@
 public class StudentController {
-
     public Student__c stu {get; set;}
     public List<Student__c> studentList {get; set;}
 
@@ -22,14 +21,10 @@ public class StudentController {
     }
 
     public void deleteStudent() {
-        String studentId =
-            ApexPages.currentPage().getParameters().get('id');
+        String studentId = ApexPages.currentPage().getParameters().get('id');
 
-        Student__c s =
-            [SELECT Id FROM Student__c WHERE Id = :studentId LIMIT 1];
-
+        Student__c s = [SELECT Id FROM Student__c WHERE Id = :studentId LIMIT 1];
         delete s;
-
         loadStudents();
     }
 }

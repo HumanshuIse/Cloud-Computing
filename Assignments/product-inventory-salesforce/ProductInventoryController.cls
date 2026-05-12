@@ -16,24 +16,17 @@ public class ProductInventoryController {
     public void loadProducts() {
         productList = [
             SELECT
-                Id,
-                Name,
-                Serial_No__c,
-                Manufacture_Date__c,
-                Expiry_Date__c
+                Id, Name, Serial_No__c,
+                Manufacture_Date__c, Expiry_Date__c
             FROM Product_Inventory__c
         ];
     }
 
     public void deleteProduct() {
-        String productId =
-            ApexPages.currentPage().getParameters().get('id');
+        String productId = ApexPages.currentPage().getParameters().get('id');
 
         Product_Inventory__c p = [
-            SELECT Id
-            FROM Product_Inventory__c
-            WHERE Id = :productId
-            LIMIT 1
+            SELECT Id FROM Product_Inventory__c WHERE Id = :productId LIMIT 1
         ];
 
         delete p;

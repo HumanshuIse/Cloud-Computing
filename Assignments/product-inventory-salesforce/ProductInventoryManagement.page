@@ -1,5 +1,5 @@
 <apex:page controller="ProductInventoryController">
-    <apex:form >
+    <apex:form>
         <h1>Product Inventory Management System</h1>
 
         <apex:pageBlock title="Add Product">
@@ -15,17 +15,14 @@
                 rerender="productTable"/>
         </apex:pageBlock>
         
-        <apex:pageBlock title="Product Inventory Records"
-            id="productTable">
-
-            <apex:pageBlockTable value="{!productList}"
-                var="p">
+        <apex:pageBlock title="Product Inventory Records" id="productTable">
+            <apex:pageBlockTable value="{!productList}" var="p">
                 
                 <apex:column value="{!p.Name}" />
                 <apex:column value="{!p.Serial_No__c}" />
                 <apex:column value="{!p.Manufacture_Date__c}" />
                 <apex:column value="{!p.Expiry_Date__c}" />
-                <apex:column >
+                <apex:column>
 
                     <apex:commandLink value="Delete"
                         action="{!deleteProduct}">
