@@ -217,9 +217,9 @@ document.getElementById("msg").innerHTML=
 Save:
 
 ```text
-CTRL + X
-Y
+CTRL + O
 ENTER
+CTRL + X
 ```
 
 ---
