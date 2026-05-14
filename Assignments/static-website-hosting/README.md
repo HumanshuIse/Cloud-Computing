@@ -1,309 +1,293 @@
-# Static Website Deployment on Cloud VM
+# Deploy a Static HTML Website on Ubuntu EC2 using Nginx
 
-## Overview
-This project demonstrates how to design and deploy a static website on a cloud virtual machine (VM)/instance. The server and networking settings are configured so that the website is publicly accessible and can be updated remotely.
-
-The deployment uses:
-- Ubuntu Cloud VM
-- Apache Web Server
-- HTML/CSS Static Website
-- SSH/SCP for Remote Management
+This guide shows how to deploy a simple static HTML website on an Ubuntu EC2 instance using Nginx.
 
 ---
 
-# Objective
+## Prerequisites
 
-- Launch a cloud virtual machine
-- Configure firewall and networking settings
-- Install and configure Apache Web Server
-- Deploy a static website
-- Make the website publicly accessible
-- Update the website remotely using SSH/SCP
+Before starting, make sure you have:
 
----
+- AWS account
+- Ubuntu EC2 instance running
+- EC2 key pair (`.pem`)
+- SSH installed
 
-# Technologies Used
+Security Group rules should allow:
 
-- HTML5
-- CSS3
-- Ubuntu Server
-- Apache HTTP Server
-- SSH
-- SCP
-- Cloud Computing Services
+| Type | Port |
+|--------|------|
+| SSH | 22 |
+| HTTP | 80 |
 
 ---
 
-# Cloud Architecture
+## Step 1: Connect to Ubuntu EC2
 
-```text
-User Browser
-      |
-      | HTTP Request
-      v
-Public IP Address
-      |
-      v
-Cloud VM Instance
-      |
-      v
-Apache Web Server
-      |
-      v
-Static Website Files
-```
+Move to the folder containing your `.pem` key.
 
----
-
-# Prerequisites
-
-Before starting, ensure you have:
-
-- Cloud Platform Account (AWS/GCP/Azure)
-- SSH Key Pair
-- Internet Connection
-- Terminal or PuTTY
-- Basic HTML Website Files
-
----
-
-# Step 1: Launch Cloud VM Instance
-
-## Example AWS EC2 Configuration
-
-| Setting | Value |
-|---|---|
-| Instance Name | StaticWebsiteServer |
-| Operating System | Ubuntu 22.04 |
-| Instance Type | t2.micro |
-| Storage | 8 GB |
-
-## Required Open Ports
-
-| Port | Protocol | Purpose |
-|---|---|---|
-| 22 | TCP | SSH Access |
-| 80 | TCP | HTTP Access |
-
----
-
-# Step 2: Connect to the Instance
+Give permission:
 
 ```bash
-ssh -i mykey.pem ubuntu@<PUBLIC_IP>
+chmod 400 mykey.pem
+```
+
+Connect via SSH:
+
+```bash
+ssh -i mykey.pem ubuntu@YOUR_PUBLIC_IP
 ```
 
 Example:
 
 ```bash
-ssh -i awskey.pem ubuntu@13.233.xxx.xxx
+ssh -i awskey.pem ubuntu@13.xxx.xxx.xxx
 ```
 
 ---
 
-# Step 3: Update System Packages
+## Step 2: Update Ubuntu Packages
 
 ```bash
 sudo apt update
-sudo apt upgrade -y
 ```
 
 ---
 
-# Step 4: Install Apache Web Server
+## Step 3: Install Nginx
 
-Install Apache:
+Install Nginx:
 
 ```bash
-sudo apt install apache2 -y
+sudo apt install nginx -y
 ```
 
-Start Apache:
+Start service:
 
 ```bash
-sudo systemctl start apache2
+sudo systemctl start nginx
 ```
 
-Enable Apache on Boot:
+Enable on boot:
 
 ```bash
-sudo systemctl enable apache2
+sudo systemctl enable nginx
 ```
 
-Check Apache Status:
+Check status:
 
 ```bash
-sudo systemctl status apache2
+sudo systemctl status nginx
 ```
 
 ---
 
-# Step 5: Deploy Static Website
+## Step 4: Verify Nginx
 
-Move to the web root directory:
+Open browser:
+
+```text
+http://YOUR_PUBLIC_IP
+```
+
+You should see:
+
+```text
+Welcome to nginx
+```
+
+---
+
+## Step 5: Remove Default Nginx Page
+
+Go to website directory:
 
 ```bash
 cd /var/www/html
 ```
 
-Remove the default Apache page:
+Delete default page:
 
 ```bash
-sudo rm index.html
+sudo rm index.nginx-debian.html
 ```
 
-Create a new HTML file:
+---
+
+## Step 6: Create Website
+
+Create HTML file:
 
 ```bash
-sudo nano index.html
+sudo nano /var/www/html/index.html
 ```
 
-Paste the following code:
+Paste the following:
 
 ```html
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Cloud Website</title>
-    <style>
-        body{
-            font-family: Arial;
-            text-align:center;
-            margin-top:100px;
-            background:#f2f2f2;
-        }
 
-        h1{
-            color:#0077cc;
-        }
-    </style>
+<head>
+
+<title>Ubuntu EC2 Deployment</title>
+
+<style>
+
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#f2f4f8;
+}
+
+.container{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.card{
+    width:500px;
+    background:white;
+    text-align:center;
+    padding:40px;
+    border-radius:15px;
+    box-shadow:0 5px 15px rgba(0,0,0,.2);
+}
+
+h1{
+    color:#0077ff;
+}
+
+button{
+    padding:12px 25px;
+    border:none;
+    border-radius:5px;
+    background:#0077ff;
+    color:white;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#0058c9;
+}
+
+</style>
+
 </head>
+
 <body>
 
-    <h1>Static Website Hosted on Cloud VM</h1>
-    <p>Website deployed successfully using Apache Server.</p>
+<div class="container">
+
+<div class="card">
+
+<h1>Hello from Ubuntu EC2</h1>
+
+<p>
+Static website deployed using Nginx on AWS EC2
+</p>
+
+<button onclick="display()">
+Click Me
+</button>
+
+<p id="msg"></p>
+
+</div>
+
+</div>
+
+<script>
+
+function display(){
+
+document.getElementById("msg").innerHTML=
+"Deployment Successful 🚀"
+
+}
+
+</script>
 
 </body>
 </html>
 ```
 
-Save and exit.
-
----
-
-# Step 6: Configure Networking
-
-Ensure the instance security group/firewall allows:
-
-- SSH Traffic (Port 22)
-- HTTP Traffic (Port 80)
-
-## AWS Security Group Example
-
-| Type | Protocol | Port Range | Source |
-|---|---|---|---|
-| SSH | TCP | 22 | 0.0.0.0/0 |
-| HTTP | TCP | 80 | 0.0.0.0/0 |
-
----
-
-# Step 7: Access Website
-
-Open the browser and enter:
+Save:
 
 ```text
-http://<PUBLIC_IP>
+CTRL + X
+Y
+ENTER
 ```
 
-Example:
+---
+
+## Step 7: Reload Nginx
+
+```bash
+sudo systemctl reload nginx
+```
+
+Open:
 
 ```text
-http://13.233.xxx.xxx
+http://YOUR_PUBLIC_IP
 ```
 
-The deployed website will appear.
+Your website is now live.
 
 ---
 
-# Remote Website Update
+## Useful Commands
 
-Upload updated files remotely using SCP:
+Restart Nginx:
 
 ```bash
-scp -i awskey.pem index.html ubuntu@<PUBLIC_IP>:/tmp/
+sudo systemctl restart nginx
 ```
 
-Move uploaded file:
+Reload:
 
 ```bash
-sudo mv /tmp/index.html /var/www/html/
+sudo systemctl reload nginx
 ```
 
-Restart Apache:
+Stop:
 
 ```bash
-sudo systemctl restart apache2
+sudo systemctl stop nginx
+```
+
+Check status:
+
+```bash
+sudo systemctl status nginx
 ```
 
 ---
 
-# Useful Commands
+## Project Structure
 
-| Operation | Command |
-|---|---|
-| Update Packages | `sudo apt update` |
-| Install Apache | `sudo apt install apache2 -y` |
-| Start Apache | `sudo systemctl start apache2` |
-| Restart Apache | `sudo systemctl restart apache2` |
-| Enable Apache | `sudo systemctl enable apache2` |
-| Check Apache Status | `sudo systemctl status apache2` |
+```text
+/var/www/html
+│
+└── index.html
+```
 
 ---
 
-# Output
+## Technologies Used
 
-- Cloud VM launched successfully
-- Apache Web Server configured
-- Static website deployed
-- Website publicly accessible
-- Remote updates performed successfully
-
----
-
-# Applications
-
-- Portfolio Websites
-- Landing Pages
-- Documentation Hosting
-- College Mini Projects
-- Business Information Websites
+- Ubuntu EC2
+- Nginx
+- HTML
+- CSS
+- JavaScript
 
 ---
 
-# Advantages
+## Result
 
-- Low Cost Hosting
-- Easy Deployment
-- Fast Loading Speed
-- Simple Maintenance
-- High Availability
-
----
-
-# Result
-
-Successfully designed and deployed a static website on a cloud virtual machine with proper server and networking configuration. The website is publicly accessible and can be updated remotely.
-
----
-
-# Conclusion
-
-Deploying a static website on a cloud VM provides a scalable and efficient hosting solution. By properly configuring the web server and security settings, the website becomes accessible globally while still allowing secure remote management.
-
----
-
-# Author
-
-**Name:** Krish Bansal  
-**Department:** Computer Engineering  
-**Institute:** Pune Institute of Computer Technology
+Static website successfully hosted on Ubuntu EC2 using Nginx.
