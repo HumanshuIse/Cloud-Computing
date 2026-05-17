@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Rule Based Customer Chatbot</title>
+    <style>
+        body{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        button{
+            margin-left: 100px;
+        }
+        textarea{
+            margin-left: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class = "container">
+        <h2>Customer Support Chatbot</h2>
+        <textarea
+            id="question"
+            placeholder="Ask your question">
+        </textarea>
+
+        <br><br>
+
+        <button onclick="reply()">
+            Submit
+        </button>
+
+        <p id="answer">
+            Bot response appears here
+        </p>
+    </div>
+    <script src="script.js"></script>
+
+</body>
+</html>
